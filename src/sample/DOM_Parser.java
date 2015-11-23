@@ -33,7 +33,7 @@ public class DOM_Parser {
         String text;
         String detall;
         //File InputFile = new File("forecast.xml");
-        URL xmlURL = new URL("http://api.openweathermap.org/data/2.5/forecast?q="+"ciutat"+",es&lang=sp&mode=xml&APPID=720f431ee254e6c38e84787031900368");
+        URL xmlURL = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q="+"ciutat"+",es&lang=sp&mode=xml&APPID=720f431ee254e6c38e84787031900368");
         InputStream InputFile = xmlURL.openStream();
 
         /*
@@ -50,11 +50,6 @@ public class DOM_Parser {
         Important Normalitzar.
          */
         doc.getDocumentElement().normalize();
-        /*
-        Nodelist de Location per saber de la ciutat de la qual estem parlant
-         */
-        NodeList ndl = doc.getElementsByTagName("location");
-        Element poblacio = (Element)ndl.item(0);
 
         /*
         NodeList per extreure el temps que fa
@@ -77,7 +72,7 @@ public class DOM_Parser {
             Mostrem la informació
              */
 
-            text="Temps del  "+temps.getAttribute("from")+ " al "+temps.getAttribute("to")+"\n\n";
+            text="Dia : "+temps.getAttribute("day")+"\n\n";
 
             /*
             Si Presipitacions té atributs mostrarem la informmació si no no mostrarem res.
@@ -86,7 +81,7 @@ public class DOM_Parser {
 
                 text=text+"     - Previsions pluja  :"+temps.getElementsByTagName("precipitation").item(0).getAttributes().getNamedItem("value").getNodeValue()+"\n";
             }
-            text=text+"     - Temperatura : "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("value").getNodeValue()+" Celcius"+"\n";
+            text=text+"     - Temperatura : "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("max").getNodeValue()+" Celcius"+"\n";
 
             text=text+"     - Núvols  : " + temps.getElementsByTagName("clouds").item(0).getAttributes().getNamedItem("value").getNodeValue() + " " + temps.getElementsByTagName("clouds").item(0).getAttributes().getNamedItem("all").getNodeValue() + temps.getElementsByTagName("clouds").item(0).getAttributes().getNamedItem("unit").getNodeValue()+"\n\n";
             this.text.add(text);

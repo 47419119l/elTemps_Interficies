@@ -67,7 +67,7 @@ public class Controller {
         }
     }
 
-    public void detall(Event event) {
+/*    public void detall(Event event) {
 
         list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
@@ -81,5 +81,10 @@ public class Controller {
             icon.setImage(image);
 
         });
+    }
+*/
+    public void menu(ActionEvent actionEvent) {
+
+
     }
 }
