@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 
-import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.*;
 
 
@@ -21,8 +21,8 @@ public class DOM_Parser {
     /**
      * Arrays amb la informació que pot tenir cada un dels dias
      */
-    public ArrayList<String>tempMin = new ArrayList<String>();
-    public ArrayList<String>tempMax = new ArrayList<String>();
+    public ArrayList<String> tempMin = new ArrayList<>();
+    public ArrayList<String> tempMax = new ArrayList<>();
     public ArrayList<String>presion=new ArrayList<String>();
     public ArrayList<Double>velVent=new ArrayList<Double>();
     public ArrayList<String>dirVent=new ArrayList<String>();
@@ -52,14 +52,15 @@ public class DOM_Parser {
         Document doc = db.parse(InputFile);
         doc.getDocumentElement().normalize();
         NodeList nl = doc.getElementsByTagName("time");
-
+        DecimalFormat decimales = new DecimalFormat("0.00");
         for (int temp =0; temp<nl.getLength();temp++){
             Element temps = (Element) nl.item(temp);
             /**
              * Omplim les arrays amb a diferent informació que té cadascun dels dies.
              */
-            tempMax.add(temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("max").getNodeValue());
-            tempMin.add(temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("min").getNodeValue());
+
+            tempMax.add(decimales.format(Double.parseDouble(temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("max").getNodeValue()) -273.15));
+            tempMin.add(decimales.format(Double.parseDouble(temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("min").getNodeValue())-273.15));
             velVent.add(Double.parseDouble(temps.getElementsByTagName("windSpeed").item(0).getAttributes().getNamedItem("mps").getNodeValue()));
             humidad.add(temps.getElementsByTagName("humidity").item(0).getAttributes().getNamedItem("value").getNodeValue()+" "+temps.getElementsByTagName("humidity").item(0).getAttributes().getNamedItem("unit").getNodeValue());
             presion.add(temps.getElementsByTagName("pressure").item(0).getAttributes().getNamedItem("value").getNodeValue()+" "+temps.getElementsByTagName("pressure").item(0).getAttributes().getNamedItem("unit").getNodeValue());
@@ -77,7 +78,7 @@ public class DOM_Parser {
             }else{
                 lluvia.add("");
             }
-            text=text+" - Temperatura Máxixma :  "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("max").getNodeValue()+" Celcius"+"\n"+" - Temperatura Minima : "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("min").getNodeValue()+" Celcius\n";
+            text=text+" - Temperatura Máxixma :  "+tempMax.get(temp)+ "\n - Temperatura Minima : "+ String.format("%s\n", tempMin.get(temp));
             text=text+" - Estado  :  " + temps.getElementsByTagName("symbol").item(0).getAttributes().getNamedItem("name").getNodeValue()+"\n\n";
             /*
             Omplim directaent el ListView

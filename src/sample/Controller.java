@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,7 +48,25 @@ public class Controller {
 
     DOM_Parser temps;
     Image image;
+    /**
+     * Metode tancar la app
+     * @param actionEvent
+     */
+    public void close(ActionEvent actionEvent) {
+        Platform.exit();
+    }
 
+    /**
+     *
+     * @param actionEvent
+     */
+    public void about(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Help");
+        alert.setHeaderText("Aplicació del temps");
+        alert.setContentText("Podem veure la previsió del temps");
+        alert.showAndWait();
+    }
     public void initialize() throws IOException, SAXException, ParserConfigurationException {
         /**
          * Per defecte cridem a la funció refresh que per defecte ens mostra la informació de la la ciutat
