@@ -16,7 +16,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="515.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <children>
     
-    <ListView fx:id="list" layoutY="145.0" prefHeight="332.0" prefWidth="515.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0" />
+                      <ListView fx:id="list" layoutY="145.0" prefHeight="332.0" prefWidth="515.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0" />
     <MenuBar prefHeight="29.0" prefWidth="276.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <menus>
         <Menu mnemonicParsing="false" text="Opcions">
@@ -40,12 +40,12 @@
     <ToolBar layoutY="30.0" prefHeight="78.0" prefWidth="515.0">
         <items>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ciutat:" />
-            <MenuButton fx:id="ciutats" mnemonicParsing="false" onAction="#menu" text="Barcelona">
+            <MenuButton fx:id="ciutats" mnemonicParsing="false" onAction="#menu" text="Ciutat">
                <items>
-                  <CheckMenuItem fx:id="bcn" mnemonicParsing="false" text="Barcelona" onAction="#menu" />
-                  <CheckMenuItem fx:id="sbd" mnemonicParsing="false" text="Sabadell" onAction="#menu" />
-                  <CheckMenuItem fx:id="bdln" mnemonicParsing="false" text="Badalona" onAction="#menu" />
-                  <CheckMenuItem fx:id="grn" mnemonicParsing="false" text="Girona" onAction="#menu" />
+                  <CheckMenuItem fx:id="bcn" mnemonicParsing="false" onAction="#menu" text="Barcelona" />
+                  <CheckMenuItem fx:id="sbd" mnemonicParsing="false" onAction="#menu" text="Sabadell" />
+                  <CheckMenuItem fx:id="bdln" mnemonicParsing="false" onAction="#menu" text="Badalona" />
+                  <CheckMenuItem fx:id="grn" mnemonicParsing="false" onAction="#menu" text="Girona" />
                </items>
             </MenuButton>
           <Button mnemonicParsing="false" onAction="#refresh">
@@ -60,26 +60,27 @@
           </Button>
         </items>
       </ToolBar>
-
-      <Label fx:id="detalls" layoutX="25.0" layoutY="227.0" prefHeight="0.0" prefWidth="2.0" />
-      <ImageView fx:id="icon2" fitHeight="96.0" fitWidth="102.0" layoutX="6.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="info" layoutX="123.0" layoutY="121.0" prefHeight="16.0" prefWidth="2.0" />
-      <TabPane layoutX="1.0" layoutY="108.0" prefHeight="368.0" prefWidth="515.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="panel" layoutX="1.0" layoutY="108.0" prefHeight="368.0" prefWidth="515.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Tots els dias">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="icon" fitHeight="96.0" fitWidth="102.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="tempmin" layoutX="130.0" layoutY="14.0" />
-                        <Label fx:id="tempmax" layoutX="130.0" layoutY="45.0" />
-                     </children></AnchorPane>
-            </content>
+          <Tab fx:id="totlist" text="Tots els dias">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+               </content>
           </Tab>
-          <Tab text="Untitled Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
+          <Tab fx:id="dia1" disable="" text="1">
+               <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                         <children>
+                        <ImageView fx:id="icon" fitHeight="96.0" fitWidth="102.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="tempmin" layoutX="130.0" layoutY="23.0" text="Temperatura minima" />
+                        <Label fx:id="pres" layoutX="129.0" layoutY="54.0" text="Pressión" />
+                        <Label fx:id="tempmax" layoutX="326.0" layoutY="23.0" text="Temperatura maxima" />
+                        <Label fx:id="hum" layoutX="323.0" layoutY="54.0" text="Humedad" />
+                        <Label fx:id="dirvent" layoutX="130.0" layoutY="86.0" text="Direccion viento" />
+                        <Label fx:id="velvent" layoutX="323.0" layoutY="86.0" text="Velocidad viento" />
+                     </children>
+                     </AnchorPane>
+               </content>
           </Tab>
         </tabs>
       </TabPane>

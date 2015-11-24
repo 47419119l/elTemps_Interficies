@@ -28,10 +28,6 @@ public class Controller {
     @FXML
     MenuButton ciutats;
     @FXML
-    Label detalls;
-    @FXML
-    Label info;
-    @FXML
     ImageView icon;
     @FXML
     CheckMenuItem bcn;
@@ -41,6 +37,16 @@ public class Controller {
     CheckMenuItem grn;
     @FXML
     CheckMenuItem sbd;
+    @FXML
+    TabPane panel;
+    @FXML
+    Tab dia1;
+    @FXML
+    Tab totlist;
+
+    //tab array
+    int intTabs = 0;
+    Tab[] openTabs;
 
     DOM_Parser temps;
 

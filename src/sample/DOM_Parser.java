@@ -29,6 +29,8 @@ public class DOM_Parser {
     public ArrayList<String>humidad=new ArrayList<String>();
     public ArrayList<String>lluvia=new ArrayList<String>();
     public ArrayList<String>dia=new ArrayList<String>();
+    public ArrayList<String> iconid=new ArrayList<String>();
+    public ArrayList<String> estado = new ArrayList<String>();
 
     /**
      *
@@ -63,6 +65,8 @@ public class DOM_Parser {
             presion.add(temps.getElementsByTagName("pressure").item(0).getAttributes().getNamedItem("value").getNodeValue()+" "+temps.getElementsByTagName("pressure").item(0).getAttributes().getNamedItem("unit").getNodeValue());
             dirVent.add(temps.getElementsByTagName("windDirection").item(0).getAttributes().getNamedItem("name").getNodeValue());
             dia.add(temps.getAttribute("day"));
+            iconid.add(temps.getElementsByTagName("symbol").item(0).getAttributes().getNamedItem("var").getNodeValue()+".png");
+            estado.add(temps.getElementsByTagName("symbol").item(0).getAttributes().getNamedItem("name").getNodeValue());
 
             text="Dia :  "+temps.getAttribute("day")+"\n\n";
             if(temps.getElementsByTagName("precipitation").item(0).hasAttributes()){
