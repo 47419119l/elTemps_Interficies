@@ -18,7 +18,9 @@ import java.util.*;
 
 
 public class DOM_Parser {
-
+    /**
+     * Arrays amb la informació que pot tenir cada un dels dias
+     */
     public ArrayList<String>tempMin = new ArrayList<String>();
     public ArrayList<String>tempMax = new ArrayList<String>();
     public ArrayList<String>presion=new ArrayList<String>();
@@ -57,22 +59,25 @@ public class DOM_Parser {
             tempMax.add(temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("max").getNodeValue());
             tempMin.add(temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("min").getNodeValue());
             velVent.add(Double.parseDouble(temps.getElementsByTagName("windSpeed").item(0).getAttributes().getNamedItem("mps").getNodeValue()));
-            humidad.add(temps.getElementsByTagName("humidity").item(0).getAttributes().getNamedItem("value").getNodeValue()+" "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("unit").getNodeValue());
-            presion.add(temps.getElementsByTagName("pressure").item(0).getAttributes().getNamedItem("value").getNodeValue()+" "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("unit").getNodeValue());
+            humidad.add(temps.getElementsByTagName("humidity").item(0).getAttributes().getNamedItem("value").getNodeValue()+" "+temps.getElementsByTagName("humidity").item(0).getAttributes().getNamedItem("unit").getNodeValue());
+            presion.add(temps.getElementsByTagName("pressure").item(0).getAttributes().getNamedItem("value").getNodeValue()+" "+temps.getElementsByTagName("pressure").item(0).getAttributes().getNamedItem("unit").getNodeValue());
             dirVent.add(temps.getElementsByTagName("windDirection").item(0).getAttributes().getNamedItem("name").getNodeValue());
             dia.add(temps.getAttribute("day"));
 
             text="Dia :  "+temps.getAttribute("day")+"\n\n";
             if(temps.getElementsByTagName("precipitation").item(0).hasAttributes()){
 
-                text=text+" - Previsiones de lluvia  :"+temps.getElementsByTagName("precipitation").item(0).getAttributes().getNamedItem("value").getNodeValue()+"\n";
+                text=text+" - Previsiones de lluvia  : "+temps.getElementsByTagName("precipitation").item(0).getAttributes().getNamedItem("value").getNodeValue()+"\n";
                 lluvia.add(temps.getElementsByTagName("precipitation").item(0).getAttributes().getNamedItem("value").getNodeValue());
 
             }else{
                 lluvia.add("");
             }
-            text=text+" - Temperatura Máxixma : "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("max").getNodeValue()+" Celcius"+"\n"+" - Temperatura Minima : "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("min").getNodeValue()+" Celcius\n";
-            text=text+" - Estado  : " + temps.getElementsByTagName("symbol").item(0).getAttributes().getNamedItem("name").getNodeValue() + " " + temps.getElementsByTagName("clouds").item(0).getAttributes().getNamedItem("all").getNodeValue() + temps.getElementsByTagName("clouds").item(0).getAttributes().getNamedItem("unit").getNodeValue()+"\n\n";
+            text=text+" - Temperatura Máxixma :  "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("max").getNodeValue()+" Celcius"+"\n"+" - Temperatura Minima : "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("min").getNodeValue()+" Celcius\n";
+            text=text+" - Estado  :  " + temps.getElementsByTagName("symbol").item(0).getAttributes().getNamedItem("name").getNodeValue()+"\n\n";
+            /*
+            Omplim directaent el ListView
+             */
             list.add(text);
 
         }
