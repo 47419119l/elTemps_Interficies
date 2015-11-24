@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="515.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="515.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <children>
     
     <ListView fx:id="list" layoutY="145.0" prefHeight="332.0" prefWidth="515.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0" />
@@ -37,24 +37,15 @@
         </Menu>
       </menus>
     </MenuBar>
-    
-    <ImageView fx:id="listViewPrevision" fitHeight="85.0" fitWidth="88.0" layoutX="13.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" visible="false" />
-    <Text fx:id="listViewCiudad" layoutX="125.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="173.9892595410347" AnchorPane.leftAnchor="124.9892595410347" AnchorPane.rightAnchor="125.0107404589653">
-      <font>
-        <Font size="30.0" />
-      </font>
-    </Text>
-    <Text fx:id="listViewText" layoutX="125.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="216.98925709724426" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="82.01074290275574" />
-    <Text fx:id="listViewTemp" layoutX="33.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" wrappingWidth="62.000006914138794" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="329.0" />
     <ToolBar layoutY="30.0" prefHeight="78.0" prefWidth="515.0">
         <items>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ciutat:" />
-            <MenuButton mnemonicParsing="false" onAction="#menu">
+            <MenuButton fx:id="ciutats" mnemonicParsing="false" onAction="#menu" text="Barcelona">
                <items>
-                  <CheckMenuItem mnemonicParsing="false" text="Barcelona" />
-                  <CheckMenuItem mnemonicParsing="false" text="Sabadell" />
-                  <CheckMenuItem mnemonicParsing="false" text="Badalona" />
-                  <CheckMenuItem mnemonicParsing="false" text="Girona" />
+                  <CheckMenuItem fx:id="bcn" mnemonicParsing="false" text="Barcelona" onAction="#menu" />
+                  <CheckMenuItem fx:id="sbd" mnemonicParsing="false" text="Sabadell" onAction="#menu" />
+                  <CheckMenuItem fx:id="bdln" mnemonicParsing="false" text="Badalona" onAction="#menu" />
+                  <CheckMenuItem fx:id="grn" mnemonicParsing="false" text="Girona" onAction="#menu" />
                </items>
             </MenuButton>
           <Button mnemonicParsing="false" onAction="#refresh">
@@ -71,13 +62,18 @@
       </ToolBar>
 
       <Label fx:id="detalls" layoutX="25.0" layoutY="227.0" prefHeight="0.0" prefWidth="2.0" />
-      <ImageView fx:id="icon" fitHeight="96.0" fitWidth="102.0" layoutX="6.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="icon2" fitHeight="96.0" fitWidth="102.0" layoutX="6.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="info" layoutX="123.0" layoutY="121.0" prefHeight="16.0" prefWidth="2.0" />
       <TabPane layoutX="1.0" layoutY="108.0" prefHeight="368.0" prefWidth="515.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Tots els dias">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="icon" fitHeight="96.0" fitWidth="102.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="tempmin" layoutX="130.0" layoutY="14.0" />
+                        <Label fx:id="tempmax" layoutX="130.0" layoutY="45.0" />
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="Untitled Tab 2">

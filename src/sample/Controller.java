@@ -9,9 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -23,68 +21,58 @@ import java.util.ArrayList;
 
 
 public class Controller {
+    String ciutatSel;
     @FXML
     ListView list = new ListView();
     ArrayList lista;
     @FXML
-    ChoiceBox ciutats;
+    MenuButton ciutats;
     @FXML
     Label detalls;
     @FXML
     Label info;
     @FXML
     ImageView icon;
+    @FXML
+    CheckMenuItem bcn;
+    @FXML
+    CheckMenuItem bdln;
+    @FXML
+    CheckMenuItem grn;
+    @FXML
+    CheckMenuItem sbd;
 
-    private String ciutat;
     DOM_Parser temps;
 
     public void refresh() throws IOException, SAXException, ParserConfigurationException {
-
-        detalls.setVisible(false);
-        info.setVisible(false);
         list.setVisible(true);
-
         temps = new DOM_Parser();
-        ciutat ="Barcelona";
         ObservableList<String> items = FXCollections.observableArrayList();
-        temps.mostrar(items,ciutat);
+        ciutatSel=ciutats.getText();
+        temps.refresh(items,ciutatSel);
         list.setItems(items);
     }
 
-    public void onChangeCountClick(ActionEvent actionEvent) {
-
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("ChangeCount.fxml"));
-            Stage newStage = new Stage();
-            newStage.setTitle("Change item's count");
-            newStage.setScene(new Scene(root, 320, 240));
-            newStage.show();
-            ciutats = new ChoiceBox();
-            ciutats.setItems(FXCollections.observableArrayList("One","Two","Three"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-/*    public void detall(Event event) {
-
-        list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-
-            int i = list.getSelectionModel().getSelectedIndex();
-            list.setVisible(false);
-            info.setVisible(true);
-            detalls.setVisible(true);
-            info.setText(temps.text.get(i));
-            detalls.setText(temps.detallinfo.get(i));
-            Image image = new Image("pluja.gif");
-            icon.setImage(image);
-
-        });
-    }
-*/
     public void menu(ActionEvent actionEvent) {
+        bcn.setSelected(false);
+        bdln.setSelected(false);
+        grn.setSelected(false);
+        sbd.setSelected(false);
 
-
+        if (actionEvent.getSource().equals(bcn)){
+            bcn.setSelected(true);
+            ciutats.setText(bcn.getText());
+        }
+        else if (actionEvent.getSource().equals(sbd)){
+            sbd.setSelected(true);
+            ciutats.setText(sbd.getText());
+        }
+        else if (actionEvent.getSource().equals(grn)){
+            grn.setSelected(true);
+            ciutats.setText(grn.getText());
+        }else {
+            bdln.setSelected(true);
+            ciutats.setText(bdln.getText());
+        }
     }
 }

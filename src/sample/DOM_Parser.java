@@ -18,75 +18,61 @@ import java.util.*;
 
 
 public class DOM_Parser {
+
+    public ArrayList<String>tempMin = new ArrayList<String>();
+    public ArrayList<String>tempMax = new ArrayList<String>();
+    public ArrayList<String>presion=new ArrayList<String>();
+    public ArrayList<Double>velVent=new ArrayList<Double>();
+    public ArrayList<String>dirVent=new ArrayList<String>();
+    public ArrayList<String>humidad=new ArrayList<String>();
+    public ArrayList<String>lluvia=new ArrayList<String>();
+    public ArrayList<String>dia=new ArrayList<String>();
+
     /**
-     * Mostra el Resum del XML i crida a la funcio crearFitxerXMl
+     *
+     * @param list
+     * @param ciutat
      * @throws ParserConfigurationException
      * @throws IOException
      * @throws SAXException
      */
-    public ArrayList<String>text = new ArrayList<String>();
-    public ArrayList<String>detallinfo = new ArrayList<String>();
-    public ArrayList<String>icon=new ArrayList<String>();
-
-
-    public void mostrar(ObservableList list, String ciutat) throws ParserConfigurationException, IOException, SAXException {
+    public void refresh(ObservableList list, String ciutat) throws ParserConfigurationException, IOException, SAXException {
         String text;
-        String detall;
-        //File InputFile = new File("forecast.xml");
         URL xmlURL = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q="+"ciutat"+",es&lang=sp&mode=xml&APPID=720f431ee254e6c38e84787031900368");
         InputStream InputFile = xmlURL.openStream();
-
         /*
         Protocol d'entrada
          */
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
-
-        /*
-        import org.w3c.dom.Document; És important fer aquest import.
-         */
         Document doc = db.parse(InputFile);
-        /*
-        Important Normalitzar.
-         */
         doc.getDocumentElement().normalize();
-
-        /*
-        NodeList per extreure el temps que fa
-         */
         NodeList nl = doc.getElementsByTagName("time");
 
         for (int temp =0; temp<nl.getLength();temp++){
-
-            /*
-            IMMPORTANT : import org.w3c.dom.Element;
-             */
-
             Element temps = (Element) nl.item(temp);
-            /*
-            Extreiem la velocitat del vent per despres calcularle en Kph
+            /**
+             * Omplim les arrays amb a diferent informació que té cadascun dels dies.
              */
-            Double vel_Vent_Mps = Double.parseDouble(temps.getElementsByTagName("windSpeed").item(0).getAttributes().getNamedItem("mps").getNodeValue());
-            Double vel_Vent_Kph = vel_Vent_Mps*3.6;
-            /*
-            Mostrem la informació
-             */
+            tempMax.add(temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("max").getNodeValue());
+            tempMin.add(temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("min").getNodeValue());
+            velVent.add(Double.parseDouble(temps.getElementsByTagName("windSpeed").item(0).getAttributes().getNamedItem("mps").getNodeValue()));
+            humidad.add(temps.getElementsByTagName("humidity").item(0).getAttributes().getNamedItem("value").getNodeValue()+" "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("unit").getNodeValue());
+            presion.add(temps.getElementsByTagName("pressure").item(0).getAttributes().getNamedItem("value").getNodeValue()+" "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("unit").getNodeValue());
+            dirVent.add(temps.getElementsByTagName("windDirection").item(0).getAttributes().getNamedItem("name").getNodeValue());
+            dia.add(temps.getAttribute("day"));
 
-            text="Dia : "+temps.getAttribute("day")+"\n\n";
-
-            /*
-            Si Presipitacions té atributs mostrarem la informmació si no no mostrarem res.
-             */
+            text="Dia :  "+temps.getAttribute("day")+"\n\n";
             if(temps.getElementsByTagName("precipitation").item(0).hasAttributes()){
 
-                text=text+"     - Previsions pluja  :"+temps.getElementsByTagName("precipitation").item(0).getAttributes().getNamedItem("value").getNodeValue()+"\n";
-            }
-            text=text+"     - Temperatura : "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("max").getNodeValue()+" Celcius"+"\n";
+                text=text+" - Previsiones de lluvia  :"+temps.getElementsByTagName("precipitation").item(0).getAttributes().getNamedItem("value").getNodeValue()+"\n";
+                lluvia.add(temps.getElementsByTagName("precipitation").item(0).getAttributes().getNamedItem("value").getNodeValue());
 
-            text=text+"     - Núvols  : " + temps.getElementsByTagName("clouds").item(0).getAttributes().getNamedItem("value").getNodeValue() + " " + temps.getElementsByTagName("clouds").item(0).getAttributes().getNamedItem("all").getNodeValue() + temps.getElementsByTagName("clouds").item(0).getAttributes().getNamedItem("unit").getNodeValue()+"\n\n";
-            this.text.add(text);
-            this.detallinfo.add("mostra");
-            this.icon.add("ok");
+            }else{
+                lluvia.add("");
+            }
+            text=text+" - Temperatura Máxixma : "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("max").getNodeValue()+" Celcius"+"\n"+" - Temperatura Minima : "+temps.getElementsByTagName("temperature").item(0).getAttributes().getNamedItem("min").getNodeValue()+" Celcius\n";
+            text=text+" - Estado  : " + temps.getElementsByTagName("symbol").item(0).getAttributes().getNamedItem("name").getNodeValue() + " " + temps.getElementsByTagName("clouds").item(0).getAttributes().getNamedItem("all").getNodeValue() + temps.getElementsByTagName("clouds").item(0).getAttributes().getNamedItem("unit").getNodeValue()+"\n\n";
             list.add(text);
 
         }
